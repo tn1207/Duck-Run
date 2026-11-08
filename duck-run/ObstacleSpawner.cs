@@ -29,10 +29,10 @@ public partial class ObstacleSpawner : Node3D
         int laneIndex = _random.Next(_lanes.Length);
         float spawnX = _lanes[laneIndex];
 
-        // Set spawn position far down the Z track (e.g., Z = -40)
-        obstacle.Position = new Vector3(spawnX, 0.5f, -40.0f);
-
         // Add it to the main world tree
         GetTree().Root.AddChild(obstacle);
+
+        // Set spawn position far down the Z track (e.g., Z = -40)
+        obstacle.Position = new Vector3(spawnX, 1.75f, -40.0f);
     }
 }

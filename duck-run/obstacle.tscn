@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dvsbf2dbg4402"]
 
+[ext_resource type="Script" uid="uid://bwvxhah6ytiqw" path="res://Obstacle.cs" id="1_sl1jc"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_jtu8r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jtu8r"]
@@ -8,6 +10,8 @@ albedo_color = Color(0.29803923, 0.16078432, 0.047058824, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_jtu8r"]
 
 [node name="Obstacle" type="Area3D" unique_id=159374489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+script = ExtResource("1_sl1jc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=894232247]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)

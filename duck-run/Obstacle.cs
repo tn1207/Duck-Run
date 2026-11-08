@@ -1,17 +1,36 @@
 using Godot;
-using System;
 
 
 public partial class Obstacle : Area3D
 {
     [Export] public float Speed = 15.0f;
+
+    public override void _Ready()
+    {
+        // Connect the body entered signal to detect collisions with the player
+        BodyEntered += OnBodyEntered;
+    }
+
     public override void _PhysicsProcess(double delta)
     {
-        Position += new Vector3(0, 0, -Speed * (float)delta);
+        Vector3 currentPosition = GlobalPosition;
+        currentPosition.Z += Speed * (float)delta;
+        GlobalPosition = currentPosition;
 
-        if (Position.Z < -10)
+        if (GlobalPosition.Z > 30.0f) // Adjust this value based on your game's requirements
         {
-            QueueFree();
+            QueueFree(); // Remove the obstacle from the scene when it goes off-screen
+        }
+
+    }
+
+    private void OnBodyEntered(Node3D body)
+    {
+        if (body is CharacterBody3D)
+        {
+            GD.Print("Player hit an obstacle!");
+            // Handle player collision with the obstacle (e.g., reduce health, end game, etc.)
+            GetTree().ReloadCurrentScene();
         }
     }
 

@@ -15,7 +15,8 @@
 [node name="World" type="Node3D" unique_id=717119242]
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=619773278]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+visible = false
 script = ExtResource("1_sy5k4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=2065222662]
@@ -37,11 +38,11 @@ mesh = SubResource("BoxMesh_jtu8r")
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1526681364]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1466273527]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0)
+transform = Transform3D(20, 0, 0, 0, 2, 0, 0, 0, 50, 0, 0, 0)
 mesh = SubResource("BoxMesh_8dda8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=862012626]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0)
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 50, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_jtu8r")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1669342440]

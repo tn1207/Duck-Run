@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://direwx2l4sp32"]
+
+[node name="GameUI" type="CanvasLayer" unique_id=1436928038]
+
+[node name="StartMenu" type="Control" parent="." unique_id=789706229]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Start" type="Button" parent="StartMenu" unique_id=2033495367]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="PauseMenu" type="Control" parent="." unique_id=1448370775]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Pause" type="Button" parent="PauseMenu" unique_id=2119711715]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="GameOverMenu" type="Control" parent="." unique_id=1646416184]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Retry" type="Button" parent="GameOverMenu" unique_id=1687485731]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
