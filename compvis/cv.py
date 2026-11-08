@@ -6,6 +6,8 @@ import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
+from server.command_sender import send_input
+
 # 1. Dynamically resolve paths and download the model if missing
 SCRIPT_DIR = Path(__file__).resolve().parent
 MODEL_PATH = SCRIPT_DIR / "pose_landmarker.task"
@@ -22,7 +24,7 @@ POSE_CONNECTIONS = [
     (11, 23), (12, 24), (23, 24),                     # Torso
     (23, 25), (25, 27), (27, 29), (29, 31),           # Left Leg
     (24, 26), (26, 28), (28, 30), (30, 32),           # Right Leg
-    (0, 1), (1, 2), (2, 3), (3, 7),                   # Left Face
+    (0, 1), (1, 2), (2, 3), (3, 7),                   # Left Face (#0 is the nose, this will be the base point for jump and tilt)
     (0, 4), (4, 5), (5, 6), (6, 8), (9, 10)           # Right Face
 ]
 
@@ -44,6 +46,32 @@ def draw_custom_skeleton(frame, pose_landmarks):
         start_idx, end_idx = connection
         if start_idx in landmark_px and end_idx in landmark_px:
             cv2.line(frame, landmark_px[start_idx], landmark_px[end_idx], (255, 0, 0), 2)
+
+def read_pose(pose_landmarks):
+    # Convert 0 - 1 coordinates into percentage thresholds
+    landmark_pos = {}
+    for (idx, landmark) in enumerate(pose_landmarks):
+        px, py = int(landmark.x * 100), int(landmark.y * 100)
+        landmark_pos[idx] = (px, py)
+
+    nose_px, nose_py = landmark_pos[0]
+
+    # Checks position of the nose, if the y is above certain threshold then it is registered as a jump or slide and sends_input
+    # Checks x position of the nose, if the x is above or below a certain threshold, then it is registered as a TILT
+    # Can be both or either or
+    if(nose_py >= 75):
+        send_input("SLIDE")
+    elif(nose_py <= 30):
+        send_input("JUMP")
+
+    if(nose_px >= 66):
+        send_input("TILT_RIGHT")
+    elif(nose_px <= 33):
+        send_input("TILT_LEFT")
+
+    
+
+
 
 def run_tracker():
     # 3. Initialize Pose Landmarker Task
@@ -85,6 +113,7 @@ def run_tracker():
         if results.pose_landmarks:
             for pose_landmarks in results.pose_landmarks:
                 draw_custom_skeleton(frame, pose_landmarks)
+                read_pose(pose_landmarks)
 
         # Display window
         cv2.imshow('Body Tracking', frame)
