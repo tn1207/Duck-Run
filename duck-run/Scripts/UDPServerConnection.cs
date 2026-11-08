@@ -7,7 +7,7 @@ public partial class UDPServerConnection : CharacterBody3D
     // UDP server variables
     private PacketPeerUdp _udp = new PacketPeerUdp();
     private string _ip = "127.0.0.1";
-    private int _port = 5000;
+    private int _port = 5005;
 
     // Lane management variables
     private float[] _lanes = new float[] { -2.0f, 0.0f, 2.0f }; // Example lane positions
@@ -26,10 +26,10 @@ public partial class UDPServerConnection : CharacterBody3D
 
     public override void _Ready()
     {
-        Error err = _udp.Bind(_port);
+        Error err = _udp.Bind(0);
         if (err != Error.Ok)
         {
-            GD.PrintErr($"Failed to listen on UDP port {_port}: {err}");
+            GD.PrintErr($"Failed to listen on UDP port : {err}");
             return;
         }
 
