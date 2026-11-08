@@ -1,14 +1,16 @@
 [gd_scene format=3 uid="uid://lvjppfom4rbr"]
 
 [ext_resource type="Script" uid="uid://ckeuo8ukeyuom" path="res://Scripts/UDPServerConnection.cs" id="1_sy5k4"]
-[ext_resource type="Script" uid="uid://uuyuw3msdjbp" path="res://ObstacleSpawner.cs" id="2_j2q8x"]
+[ext_resource type="PackedScene" uid="uid://pcccaulsnm67" path="res://Model/Models/Godot Versions/duck_enemy_base_model.glb" id="2_e2u21"]
+[ext_resource type="Script" uid="uid://uuyuw3msdjbp" path="res://Scripts/ObstacleSpawner.cs" id="2_j2q8x"]
 [ext_resource type="PackedScene" uid="uid://dvsbf2dbg4402" path="res://obstacle.tscn" id="3_112p8"]
+[ext_resource type="PackedScene" uid="uid://bm11d087dydkm" path="res://Model/Models/Godot Versions/River_Map2.glb" id="3_qn3nj"]
+[ext_resource type="PackedScene" uid="uid://cl04sasvqmqks" path="res://Model/Models/Godot Versions/River_Map.glb" id="3_tda05"]
+[ext_resource type="Script" uid="uid://vwyyb4is0bxw" path="res://Scripts/FloorMover.cs" id="4_qn3nj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8dda8"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_jtu8r"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_8dda8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jtu8r"]
 
@@ -16,7 +18,6 @@
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=619773278]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-visible = false
 script = ExtResource("1_sy5k4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=2065222662]
@@ -27,7 +28,10 @@ shape = SubResource("BoxShape3D_8dda8")
 transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 0, 3, 6)
 
 [node name="PlayerMesh" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1085078379]
+visible = false
 mesh = SubResource("BoxMesh_jtu8r")
+
+[node name="duck_enemy_base_model" parent="CharacterBody3D" unique_id=484490831 instance=ExtResource("2_e2u21")]
 
 [node name="LeftLane" type="MeshInstance3D" parent="." unique_id=1722907513]
 
@@ -37,9 +41,20 @@ mesh = SubResource("BoxMesh_jtu8r")
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1526681364]
 
+[node name="River_Map" parent="Floor" unique_id=663518776 instance=ExtResource("3_tda05")]
+script = ExtResource("4_qn3nj")
+
+[node name="River_Map2" parent="Floor" unique_id=795317889 instance=ExtResource("3_qn3nj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
+script = ExtResource("4_qn3nj")
+
+[node name="River_Map3" parent="Floor" unique_id=2096975515 instance=ExtResource("3_tda05")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -60)
+script = ExtResource("4_qn3nj")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1466273527]
 transform = Transform3D(20, 0, 0, 0, 2, 0, 0, 0, 50, 0, 0, 0)
-mesh = SubResource("BoxMesh_8dda8")
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=862012626]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 50, 0, 1.5, 0)

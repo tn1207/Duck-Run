@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="Duck Run"
-run/main_scene="res://node.tscn"
+run/main_scene="uid://lvjppfom4rbr"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
+run/max_fps=120
 config/icon="res://icon.svg"
 
 [display]
@@ -23,6 +24,10 @@ window/stretch/aspect="expand"
 [dotnet]
 
 project/assembly_name="Duck Run"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
