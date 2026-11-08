@@ -20,8 +20,8 @@ if not MODEL_PATH.exists():
 latest_result = None;
     
 def update_last_result(result, output_image, timestamp_ms):
-    global last_result 
-    last_result = result
+    global latest_result 
+    latest_result = result
 
 def run_tracker():
     # Setup Face Detector
@@ -33,7 +33,7 @@ def run_tracker():
     options = FaceDetectorOptions(
         base_options = BaseOptions(model_asset_path = str(MODEL_PATH)),
         running_mode = VisionRunningMode.LIVE_STREAM,
-        min_detection_confidence = .5,
+        min_detection_confidence = .75,
         result_callback = update_last_result
     )
 
@@ -41,6 +41,8 @@ def run_tracker():
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+    frame_timestamp_ms = 0
 
     with FaceDetector.create_from_options(options) as detector:
         while cap.isOpened():
@@ -57,8 +59,9 @@ def run_tracker():
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data = rgb_frame)
 
-            timestamp_ms = int(time.time() * 1000)
-            detector.detect_async(mp_image, timestamp_ms)
+            # timestamp_ms = int(time.time() * 1000)
+            frame_timestamp_ms += 1
+            detector.detect_async(mp_image, frame_timestamp_ms)
 
             if latest_result and latest_result.detections:
                 for detection in latest_result.detections:
@@ -69,7 +72,7 @@ def run_tracker():
                     center_y = int(bbox.origin_y + bbox.height/2)
 
                     # Calculate the radius for the face
-                    radius = int(max(bbox.width, bbox.height) / 2)
+                    radius = int(max(bbox.width, bbox.height) / 1.25)
 
                     # Draw the circle
                     cv2.circle(frame, (center_x, center_y), radius, (0, 255, 0), 2)
