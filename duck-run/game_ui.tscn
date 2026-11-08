@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://direwx2l4sp32"]
 
+[ext_resource type="Script" uid="uid://dl6ucqpoj82mo" path="res://Scripts/GameUI.cs" id="1_ue6oa"]
+
 [node name="GameUI" type="CanvasLayer" unique_id=1436928038]
+visible = false
+script = ExtResource("1_ue6oa")
 
 [node name="StartMenu" type="Control" parent="." unique_id=789706229]
 layout_mode = 3

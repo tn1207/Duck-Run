@@ -14,6 +14,9 @@ public partial class ObstacleSpawner : Node3D
         _spawnTimer = new Timer();
         _spawnTimer.WaitTime = 1.5f;
         _spawnTimer.Autostart = true;
+
+        _spawnTimer.ProcessMode = ProcessModeEnum.Pausable;
+
         _spawnTimer.Timeout += OnSpawnTimeout;
         AddChild(_spawnTimer);
     }
