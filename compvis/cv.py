@@ -75,7 +75,7 @@ def read_pose(pose_landmarks):
 
 def run_tracker():
     # 3. Initialize Pose Landmarker Task
-    base_options = python.BaseOptions(model_asset_path=str(MODEL_PATH))
+    base_options = mp.tasks.BaseOptions(model_asset_path=str(MODEL_PATH))
     options = vision.PoseLandmarkerOptions(
         base_options=base_options,
         running_mode=vision.RunningMode.VIDEO,
