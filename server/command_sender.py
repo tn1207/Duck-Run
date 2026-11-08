@@ -2,7 +2,7 @@ import socket
 
 # Localhost and port
 HOST = "127.0.0.1"
-PORT = 5000
+PORT = 5005
 BUFFER_SIZE = 1024
 
 # Simple socket example
